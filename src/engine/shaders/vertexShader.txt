@@ -1,0 +1,18 @@
+#version 410 core
+
+in vec3 position;
+in vec2 textureCoords;
+in vec3 normal;
+
+out vec3 worldPos_CS_in;
+out vec2 texCoord_CS_in;
+out vec3 normal_CS_in;
+
+uniform mat4 transformationMatrix;
+
+
+void main(void){
+	worldPos_CS_in = (transformationMatrix * vec4(position,1)).xyz;
+	texCoord_CS_in = textureCoords;
+	normal_CS_in = (transformationMatrix * vec4(normal, 1)).xyz;
+}
