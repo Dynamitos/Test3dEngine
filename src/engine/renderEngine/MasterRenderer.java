@@ -87,7 +87,6 @@ public class MasterRenderer {
 		terrainRenderer.render(Data.chunks.getCurrentTerrains(RENDER_DISTANCE, (int)(camera.getPosition().x/Terrain.SIZE), (int)(camera.getPosition().z/Terrain.SIZE)));
 		terrainShader.stop();
 		skyboxRenderer.render(camera, SKY_COLOR.x, SKY_COLOR.y, SKY_COLOR.z);
-		guiRenderer.render(Data.guis);
 	}
 	
 	

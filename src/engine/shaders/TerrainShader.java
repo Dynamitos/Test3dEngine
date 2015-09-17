@@ -12,11 +12,8 @@ public class TerrainShader extends ShaderProgram {
 
 	private static final int MAX_LIGHTS = 4;
 
-	private static final String VERTEX_FILE = "src/engine/shaders/terrainVertexShader.txt";
-	private static final String FRAGMENT_FILE = "src/engine/shaders/terrainFragmentShader.txt";
-	private static final String TESSELATIONCONTROL_FILE = "src/engine/shaders/tesselationControlShader.txt";
-	private static final String TESSELATIONEVALUATION_FILE = "src/engine/shaders/tesselationEvaluationShader.txt";
-
+	private static final String VERTEX_FILE = "src/engine/shaders/noTessTerrainVertex.shader";
+	private static final String FRAGMENT_FILE = "src/engine/shaders/noTessTerrainFragment.shader";
 	private int location_transformationMatrix;
 	private int location_projectionMatrix;
 	private int location_viewMatrix;
@@ -33,12 +30,9 @@ public class TerrainShader extends ShaderProgram {
 	private int location_gTexture;
 	private int location_bTexture;
 	private int location_blendMap;
-	private int location_cameraPos;
-	private int location_displacementFactor;
-	private int location_displacementMap;
 
 	public TerrainShader() {
-		super(VERTEX_FILE, FRAGMENT_FILE, TESSELATIONCONTROL_FILE, TESSELATIONEVALUATION_FILE);
+		super(VERTEX_FILE, FRAGMENT_FILE);
 		start();
 		getAllUniformLocations();
 		stop();
@@ -66,9 +60,6 @@ public class TerrainShader extends ShaderProgram {
 		location_gTexture = super.getUniformLocation("gTexture");
 		location_bTexture = super.getUniformLocation("bTexture");
 		location_blendMap = super.getUniformLocation("blendMap");
-		location_cameraPos = super.getUniformLocation("cameraPos");
-		location_displacementFactor = super.getUniformLocation("displacementFactor");
-		location_displacementMap = super.getUniformLocation("displacementMap");
 		location_lightColor = new int[MAX_LIGHTS];
 		location_lightPosition = new int[MAX_LIGHTS];
 		location_attenuation = new int[MAX_LIGHTS];
@@ -78,20 +69,12 @@ public class TerrainShader extends ShaderProgram {
 			location_attenuation[i] = super.getUniformLocation("attenuation[" + i + "]");
 		}
 	}
-	public void loadCameraPos(Vector3f cameraPos){
-		super.loadVector(location_cameraPos, cameraPos);
-	}
 	public void connectTextureUnits() {
 		super.loadInt(location_backgroundTexture, 0);
 		super.loadInt(location_rTexture, 1);
 		super.loadInt(location_gTexture, 2);
 		super.loadInt(location_bTexture, 3);
 		super.loadInt(location_blendMap, 4);
-	}
-
-	public void loadDisplacement(float displacementFactor){
-		super.loadInt(location_displacementMap, 5);
-		super.loadFloat(location_displacementFactor, displacementFactor);
 	}
 
 	public void loadFog(float gradient, float density) {

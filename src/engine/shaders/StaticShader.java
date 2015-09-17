@@ -12,10 +12,8 @@ public class StaticShader extends ShaderProgram {
 
 	private static final int MAX_LIGHTS = 4;
 
-	private static final String VERTEX_FILE = "src/engine/shaders/vertexShader.txt";
-	private static final String FRAGMENT_FILE = "src/engine/shaders/fragmentShader.txt";
-	private static final String TESSELATIONCONTROL_FILE = "src/engine/shaders/tesselationControlShader.txt";
-	private static final String TESSELATIONEVALUATION_FILE = "src/engine/shaders/tesselationEvaluationShader.txt";
+	private static final String VERTEX_FILE = "src/engine/shaders/noTessEntityVertex.shader";
+	private static final String FRAGMENT_FILE = "src/engine/shaders/noTessEntityFragment.shader";
 
 	private int location_transformationMatrix;
 	private int location_projectionMatrix;
@@ -31,12 +29,9 @@ public class StaticShader extends ShaderProgram {
 	private int location_numberOfRows;
 	private int location_offset;
 	private int location_attenuation[];
-	private int location_cameraPos;
-	private int location_displacementFactor;
-	private int location_displacementMap;
 
 	public StaticShader() {
-		super(VERTEX_FILE, FRAGMENT_FILE, TESSELATIONCONTROL_FILE, TESSELATIONEVALUATION_FILE);
+		super(VERTEX_FILE, FRAGMENT_FILE);
 		getAllUniformLocations();
 
 	}
@@ -60,10 +55,7 @@ public class StaticShader extends ShaderProgram {
 		location_density = super.getUniformLocation("density");
 		location_gradient = super.getUniformLocation("gradient");
 		location_numberOfRows = super.getUniformLocation("numberOfRows");
-		location_cameraPos = super.getUniformLocation("cameraPos");
 		location_offset = super.getUniformLocation("offset");
-		location_displacementFactor = super.getUniformLocation("displacementFactor");
-		location_displacementMap = super.getUniformLocation("displacementMap");
 		location_lightPosition = new int[MAX_LIGHTS];
 		location_lightColor = new int[MAX_LIGHTS];
 		location_attenuation = new int[MAX_LIGHTS];
@@ -72,13 +64,6 @@ public class StaticShader extends ShaderProgram {
 			location_lightColor[i] = super.getUniformLocation("lightColor[" + i + "]");
 			location_attenuation[i] = super.getUniformLocation("attenuation[" + i + "]");
 		}
-	}
-	public void loadDisplacement(float displacementFactor){
-		super.loadInt(location_displacementMap, 1);
-		super.loadFloat(location_displacementFactor, displacementFactor);
-	}
-	public void loadCameraPos(Vector3f position){
-		super.loadVector(location_cameraPos, position);
 	}
 	public void loadNumberOfRows(int numberOfRows) {
 		super.loadFloat(location_numberOfRows, numberOfRows);

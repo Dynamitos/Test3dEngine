@@ -12,6 +12,11 @@ out vec3 worldPos_ES_in[];
 out vec2 texCoord_ES_in[];
 out vec3 normal_ES_in[];
 
+#define ID gl_InvocationID
+
+uniform float tessLevelInner;
+uniform float tessLevelOuter;
+
 float GetTessLevel(float Distance0, float Distance1)
 {
     float AvgDistance = (Distance0 + Distance1) / 2.0;

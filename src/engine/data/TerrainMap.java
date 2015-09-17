@@ -16,7 +16,7 @@ public class TerrainMap{
 		if(terrains.size() <= x){
 			addColumn(x);
 		}
-		terrains.get(x).add(terrain);
+		terrains.get(x).add(z, terrain);
 	}
 	private void addColumn(int x){
 		terrains.add(x, new ArrayList<>());

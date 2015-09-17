@@ -11,8 +11,8 @@ import static org.lwjgl.opengl.GL13.GL_TEXTURE2;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE3;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE4;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
-import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
+import static org.lwjgl.opengl.GL40.*;
+import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 import java.util.Set;
@@ -40,7 +40,7 @@ public class TerrainRenderer {
 		for (Terrain terrain : terrains) {
 			prepareTerrain(terrain);
 			loadModelMatrix(terrain);
-			glDrawElements(GL_TRIANGLES, terrain.getModel().getVertexCount(), GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_PATCHES, terrain.getModel().getVertexCount(), GL_UNSIGNED_INT, 0);
 			unbindTexturedModel();
 		}
 	}
@@ -67,8 +67,6 @@ public class TerrainRenderer {
 		glBindTexture(GL_TEXTURE_2D, texturePack.getbTexture().getTextureID());
 		glActiveTexture(GL_TEXTURE4);
 		glBindTexture(GL_TEXTURE_2D, terrain.getBlendMap().getTextureID());
-		glActiveTexture(GL_TEXTURE5);
-		glBindTexture(GL_TEXTURE_2D, terrain.getDisplacementMap().getTextureID());
 	}
 	
 	private void unbindTexturedModel() {

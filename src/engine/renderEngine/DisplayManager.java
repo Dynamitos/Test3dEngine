@@ -8,6 +8,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_SAMPLES;
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
+import static org.lwjgl.opengl.GL40.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import java.nio.DoubleBuffer;
@@ -46,6 +47,7 @@ public class DisplayManager {
 		if (glfwInit() == GL_FALSE)
 			throw new IllegalStateException();
 		glfwWindowHint(GLFW_SAMPLES, 4);
+		glfwWindowHint(GLFW_VERSION_MAJOR, 4);
 
 		window = glfwCreateWindow(WIDTH, HEIGHT, "TEST", NULL, NULL);
 
@@ -59,6 +61,7 @@ public class DisplayManager {
 		GLContext.createFromCurrent();
 		glfwSwapInterval(1);
 		glEnable(GL_MULTISAMPLE);
+		glPatchParameteri(GL_PATCHES, 3);
 		lastFrameTime = getCurrentTime();
 	}
 	public static void updateDisplay() {

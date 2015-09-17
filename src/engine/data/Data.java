@@ -1,5 +1,6 @@
 package engine.data;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -61,21 +62,21 @@ public class Data {
 					stream = new FileInputStream(file);
 					ois = new ObjectInputStream(stream);
 					Object o = null;
-					while((o = ois.readObject())!= null){
+					while((o = ois.readObject())!=null){
 						if(o.getClass().toString().contains("Terrain")){
 							Terrain terrain = (Terrain)o;
 							chunks.addTerrain(terrain.getGridX(), terrain.getGridZ(), terrain);
+							System.out.println("terrain "+terrain);
 						}
 						if(o.getClass().toString().contains("Entity")){
-							System.out.println(o.getClass().toString());
+							System.out.println("entity "+o.getClass());
 						}
 					}
 				} catch (Exception e) {
 					try {
 						stream.close();
 						ois.close();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
+					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
 				}

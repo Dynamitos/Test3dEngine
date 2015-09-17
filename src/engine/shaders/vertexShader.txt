@@ -10,7 +10,6 @@ out vec3 normal_CS_in;
 
 uniform mat4 transformationMatrix;
 
-
 void main(void){
 	worldPos_CS_in = (transformationMatrix * vec4(position,1)).xyz;
 	texCoord_CS_in = textureCoords;
